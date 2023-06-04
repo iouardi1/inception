@@ -1,0 +1,14 @@
+version: "3"
+# Defines which compose version to use
+services:
+  # Services line define which Docker images to run. In this case, it will be MySQL server and WordPress image.
+    nginx:
+        build: requirements/nginx/
+    mariadb:
+        build: requirements/mariadb/
+    wordpress:
+        build:  requirements/wordpress/
+
+volumes:
+  mysql: {}
+  
