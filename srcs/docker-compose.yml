@@ -1,14 +1,29 @@
-version: "3"
-# Defines which compose version to use
-services:
-  # Services line define which Docker images to run. In this case, it will be MySQL server and WordPress image.
-    nginx:
-        build: requirements/nginx/
-    mariadb:
-        build: requirements/mariadb/
-    wordpress:
-        build:  requirements/wordpress/
+# version: "3"
+# # Defines which compose version to use
+# services:
+#   # Services line define which Docker images to run. In this case, it will be MySQL server and WordPress image.
+#     nginx:
+#         build: requirements/nginx/
+#     mariadb:
+#         build: requirements/mariadb/
+#     wordpress:
+#         build:  requirements/wordpress/
 
-volumes:
-  mysql: {}
+# volumes:
+#   mysql: {}
   
+
+version: '3.8'
+services:
+  mariadb:
+    image: mariadb:latest
+    container_name: mariadb
+    restart: unless-stopped
+    environment:
+      - MARIADB_ROOT_PASSWORD=password
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - "8080:8080"
