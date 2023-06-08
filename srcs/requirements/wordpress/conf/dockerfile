@@ -1,0 +1,21 @@
+FROM    debian:buster
+
+RUN apt-get update && apt-get install -y \
+    php \
+    php-mysql \
+    php-gd \
+    php-curl \
+    php-mbstring \
+    php-xml \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN curl -O https://wordpress.org/latest.tar.gz
+RUN tar -xvzf latest.tar.gz --strip-components=1
+RUN rm latest.tar.gz
+
+RUN chown -R www-data:www-data /var/www/html/
+RUN chmod -R 755 /var/www/html/
+
+COPY conf/wp-config.php /var/www/html/wp-config.php
+
+CMD ["php-fpm7.4", "-F"]

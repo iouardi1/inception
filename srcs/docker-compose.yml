@@ -3,14 +3,15 @@ version: "3.9"
 services:
     wordpress:
         container_name: wordpress
+        depends_on:
+            -mariadb
         build:  requirements/wordpress
         restart: always
         env_file:
             - .env
           
         volumes:
-            - wordpress_data:/var/www/html
-            - ./wordpress:/var/www/html
+            - wordpress_data:/var/www/wordpress
     mariadb:
         container_name: mariadb
         build: requirements/mariadb
@@ -24,12 +25,12 @@ services:
         build: requirements/nginx
         restart: unless-stopped
         ports:
-            # - 80:80
             - 443:443
+        depends_on:
+            - wordpress
         volumes:
-            - ./nginx/conf:/etc/nginx/conf.d
-            - ./certbot/conf:/etc/nginx/ssl
-            - ./certbot/data:/var/www/html
+            - wordpress_data:/var/www/wordpress
 volumes:
     mariadb_data:
+        /var/lib/
     wordpress_data:

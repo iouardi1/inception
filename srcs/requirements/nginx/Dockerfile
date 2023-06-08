@@ -9,7 +9,7 @@ COPY /conf/nginx.conf /etc/nginx/conf.d/
 # Expose the default NGINX port
 EXPOSE 443
 
-RUN apt-get update
+RUN apt-get update && apt-get install nginx
 
 # installing an editor is not necessary, but is handy
 RUN apt-get -y install vim
