@@ -1,29 +1,24 @@
-# Use the official NGINX image as the base image
-FROM debian:buster
+FROM	debian:buster
 
-WORKDIR /
+#install all the program
+RUN		apt-get update
+RUN		apt-get install -y nginx \
+                openssl
 
-# Copy your custom NGINX configuration file
-COPY /conf/nginx.conf /etc/nginx/conf.d/
+# nginx SSL
+RUN mkdir /etc/nginx/ssl
+RUN openssl req -newkey rsa:4096 -x509 -sha256 -days 365 -nodes \
+       -out /etc/nginx/ssl/vbachele.crt \
+       -keyout /etc/nginx/ssl/vbachele.key \
+       -subj "/C=FR/ST=Paris/L=Paris/O=42 School/OU=vbachele/CN=vbachele/"
 
-# Expose the default NGINX port
-EXPOSE 443
+COPY ./conf/nginx.conf /etc/nginx/conf.d
 
-RUN apt-get update && apt-get install nginx
+# nginx config
+RUN mkdir -p /run/nginx
 
-# installing an editor is not necessary, but is handy
-RUN apt-get -y install vim
+#the only port allowed
+EXPOSE	443
 
-# installing an netstat is not necessary, but is handy
-RUN apt-get install net-tools
-
-# openssl is the only required thing to install
-RUN apt-get -y install openssl
-
-COPY /tools/ssl.sh ./
-
-RUN chmod +x ssl.sh
-RUN ./ssl.sh
-
-# Start NGINX when the container launches
+# Start nginx
 CMD ["nginx", "-g", "daemon off;"]
