@@ -5,7 +5,7 @@ services:
     wordpress:
         container_name: wordpress
         depends_on:
-            -mariadb
+            - mariadb
         build:
             context: requirements/wordpress
             dockerfile: dockerfile
@@ -22,9 +22,9 @@ services:
         build: requirements/mariadb
         restart: always
         volumes:
-            - mariadb_data:/var/lib/mysql
+            - mariadb_db:/var/lib/mysql
         networks:
-            -network
+            - network
         env_file:
             - .env
     
@@ -42,17 +42,18 @@ services:
             - network
 
 volumes:
-    driver: local
-    driver_opts:
-        type: none
-        device: /home/vbachele/data/mysql
-        o: bind
+    mariadb_db:
+        # driver: local
+        # driver_opts:
+        #     type: none
+        #     device: /goinfre/iouardi/data/mariadb
+        #     o: bind
     wordpress_data:
-        driver: local
-        driver_opts:
-        type: none
-        device: /home/vbachele/data/wordpress
-        o: bind
+        # driver: local
+        # driver_opts:
+        #     type: none
+        #     device: /goinfre/iouardi/data/wordpress
+        #     o: bind
 
 networks:
     network:
