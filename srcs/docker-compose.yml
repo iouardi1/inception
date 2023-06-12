@@ -20,7 +20,7 @@ services:
     mariadb:
         container_name: mariadb
         build: requirements/mariadb
-        restart: always
+        # restart: always
         volumes:
             - mariadb_db:/var/lib/mysql
         networks:
