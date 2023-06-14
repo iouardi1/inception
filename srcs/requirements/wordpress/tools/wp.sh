@@ -22,6 +22,8 @@ else
 	sed -i "s/database_name_here/$MYSQL_DATABASE/g" wp-config-sample.php
 	cp wp-config-sample.php wp-config.php
 ###################################
+
+cd /var/www/html/ && rm -rf wp-config.php
 fi
 
 exec "$@"
