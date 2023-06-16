@@ -13,21 +13,20 @@ services:
         env_file:
             - .env
         volumes:
-            - wordpress_data:/var/www/html
+            - wordpress_data:/var/www/wordpress
         networks:
             - network
     
     mariadb:
         container_name: mariadb
         build: requirements/mariadb
-        # restart: always
+        restart: always
         volumes:
             - mariadb_db:/var/lib/mysql
         networks:
             - network
         env_file:
             - .env
-    
     nginx:
         container_name: nginx
         build: requirements/nginx
@@ -37,7 +36,7 @@ services:
         depends_on:
             - wordpress
         volumes:
-            - wordpress_data:/var/www/html
+            - wordpress_data:/var/www/wordpress
         networks:
             - network
 

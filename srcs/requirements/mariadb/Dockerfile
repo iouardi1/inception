@@ -23,12 +23,13 @@ EXPOSE 3306
 #Copy of the .sh and .sql in the /bin of the container to be able to run the program
 # Give the right to execute + launch the .sh
 COPY ./tools/mariadb1.sh /usr/local/bin/
-COPY ./conf/wordpress.sql /usr/local/bin/
+# COPY ./conf/wordpress.sql /usr/local/bin/
 RUN chmod +x /usr/local/bin/mariadb1.sh
-RUN chmod +x /usr/local/bin/wordpress.sql
-RUN service mysql start
+# RUN chmod +x /usr/local/bin/wordpress.sql
+RUN service mysql start && sh /usr/local/bin/mariadb1.sh
 
 # ENTRYPOINT [ "/usr/local/bin/mariadb1.sh" ]
 
+# RUN bash /usr/local/bin/mariadb1.sh
 #Command to launch mariadb and enable the database to listen globally - also can be put on mysqldump.cnf file
 CMD ["mysqld", "--bind-address=0.0.0.0"]

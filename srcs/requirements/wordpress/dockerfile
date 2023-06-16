@@ -28,39 +28,15 @@ RUN mkdir /run/php
 
 #we copy the script, give the right to launch it in local on our computer
 COPY ./tools/wp.sh /usr/local/bin/
+# COPY ./conf/wp-config.php ./
 RUN chmod +x /usr/local/bin/wp.sh
 ENTRYPOINT ["/usr/local/bin/wp.sh"]
 
 #We go the html directory
-WORKDIR /var/www/html/
+# WORKDIR /var/www/wordpress
 
 #We expose the 9000 port
 EXPOSE 9000
 
 #Launch PHP FPM in foreground and ignore deamonize from conf file (-F)
 CMD ["/usr/sbin/php-fpm7.3", "-F"]
-
-
-
-# FROM    debian:buster
-
-# RUN apt-get update && apt-get install -y \
-#     php \
-#     php-mysql \
-#     php-gd \
-#     php-curl \
-# 	curl \
-#     php-mbstring \
-#     php-xml \
-#     && rm -rf /var/lib/apt/lists/*
-
-# RUN curl -O https://wordpress.org/latest.tar.gz
-# RUN tar -xvzf latest.tar.gz --strip-components=1
-# RUN rm latest.tar.gz
-
-# RUN chown -R www-data:www-data /var/www/html/
-# RUN chmod -R 755 /var/www/html/
-
-# COPY conf/wp-config.php /var/www/html/wp-config.php
-
-# CMD ["php-fpm7.4", "-F"]
