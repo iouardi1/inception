@@ -6,18 +6,14 @@ then
 	echo "wordpress already downloaded"
 else
 
-####### MANDATORY PART ##########
-
 	MYSQL_HOSTNAME="mariadb"
 	MYSQL_DATABASE="wordpress"
 	MYSQL_USER="iouardi"
 	MYSQL_PASSWORD="new1234"
 
-	#Download wordpress and all config file
 	cd /var/www/
 	wget http://wordpress.org/latest.tar.gz
 	tar xfz latest.tar.gz
-	# mv ../../wp-config.php /var/www/wordpress/wp-config.php
 	mv wordpress/wp-config-sample.php wordpress/wp-config.php && chmod +x wordpress/wp-config.php
 	sed -i "s/username_here/$MYSQL_USER/g" wordpress/wp-config.php
 	sed -i "s/password_here/$MYSQL_PASSWORD/g" wordpress/wp-config.php
@@ -29,16 +25,7 @@ else
 	chown -R www-data:www-data /var/www/wordpress
 	wp core install --allow-root --path=/var/www/wordpress --url=localhost --title=ihsan --admin_user=supervisor --admin_password=strongpassword --admin_email=info@example.com 
 
-	wp user create --allow-root --path=/var/www/wordpress iouardi ihssaneouardi2@gmail.com --role=author --user_pass=iouardi1234
-	# mv wordpress/* .
-	# rm -rf latest.tar.gz
-	# rm -rf wordpress
-
-	# cp wp-config-sample.php wp-config.php
-	#Inport env variables in the config file
-###################################
-
-# cd /var/www/html/ && rm -rf wp-config.php
+	wp user create --allow-root --path=/var/www/wordpress ihsan ihssaneouardi2@gmail.com --role=author --user_pass=ihsan1234
 fi
 
 exec "$@"
