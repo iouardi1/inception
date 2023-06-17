@@ -2,15 +2,6 @@
 
 /etc/init.d/mysql start
 
-
-DOMAIN_NAME="iouardi.42.fr"
-
-MYSQL_HOSTNAME="mariadb"
-MYSQL_DATABASE="wordpress"
-MYSQL_USER="iouardi"
-MYSQL_PASSWORD="new1234"
-MYSQL_ROOT_PASSWORD="root4life"
-
 # we Create database here
 mysql -e "CREATE DATABASE IF NOT EXISTS ${MYSQL_DATABASE};"
 

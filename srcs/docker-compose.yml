@@ -9,6 +9,13 @@ services:
         build:
             context: requirements/wordpress
             dockerfile: dockerfile
+            args:
+            - MYSQL_HOSTNAME=${MYSQL_HOSTNAME}
+            - MYSQL_DATABASE=${MYSQL_DATABASE}
+            - MYSQL_USER=${MYSQL_USER}
+            - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+            - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+
         restart: always
         env_file:
             - .env
@@ -19,7 +26,15 @@ services:
     
     mariadb:
         container_name: mariadb
-        build: requirements/mariadb
+        build:
+            context: requirements/mariadb
+            args:
+            - MYSQL_HOSTNAME=${MYSQL_HOSTNAME}
+            - MYSQL_DATABASE=${MYSQL_DATABASE}
+            - MYSQL_USER=${MYSQL_USER}
+            - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+            - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+
         restart: always
         volumes:
             - mariadb_db:/var/lib/mysql

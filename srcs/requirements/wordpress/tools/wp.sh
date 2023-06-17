@@ -5,12 +5,6 @@ if [ -f /var/www/wordpress ]
 then
 	echo "wordpress already downloaded"
 else
-
-	MYSQL_HOSTNAME="mariadb"
-	MYSQL_DATABASE="wordpress"
-	MYSQL_USER="iouardi"
-	MYSQL_PASSWORD="new1234"
-
 	cd /var/www/
 	wget http://wordpress.org/latest.tar.gz
 	tar xfz latest.tar.gz
