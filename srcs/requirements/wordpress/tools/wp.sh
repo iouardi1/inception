@@ -16,12 +16,19 @@ else
 	sed -i "s/localhost/$MYSQL_HOSTNAME/g" wordpress/wp-config.php
 	sed -i "s/database_name_here/$MYSQL_DATABASE/g" wordpress/wp-config.php
 
-
+	#here
+	sed -i "s/localhost/$DOMAIN_NAME/g" wordpress/wp-config.php
 
 	chown -R www-data:www-data /var/www/wordpress
-	wp core install --allow-root --path=/var/www/wordpress --url=localhost --title=ihsan --admin_user=supervisor --admin_password=strongpassword --admin_email=info@example.com 
+	wp core install --allow-root --path=/var/www/wordpress --url=$DOMAIN_NAME --title=ihsan --admin_user=$admin_user --admin_password=$admin_password --admin_email=$admin_email
 
-	wp user create --allow-root --path=/var/www/wordpress ihsan ihssaneouardi2@gmail.com --role=author --user_pass=ihsan1234
+	wp user create --allow-root --path=/var/www/wordpress $user $user_email --role=author --user_pass=$user_pass
 fi
 
 exec "$@"
+
+
+# F in fpm 
+#  remove the credentiels from the script
+# expose port
+# remove php config file
